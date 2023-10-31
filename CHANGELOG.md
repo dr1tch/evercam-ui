@@ -1,3 +1,12 @@
+## [0.0.9](https://github.com/dr1tch/evercam-ui/compare/v0.0.8...v0.0.9) (2023-10-31)
+
+
+### Bug Fixes
+
+* add env variables to pipeline ([cd210cf](https://github.com/dr1tch/evercam-ui/commit/cd210cfe31e3faa3c83294511f00ed0dee1f35cd))
+
+
+
 ## [0.0.8](https://github.com/dr1tch/evercam-ui/compare/v0.0.7...v0.0.8) (2023-10-31)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * change the branch from main to master. ([badb9cc](https://github.com/dr1tch/evercam-ui/commit/badb9cc3240b28531ecea2e2195a1f5d50dc3786))
-
-
-
-## [0.0.4](https://github.com/dr1tch/evercam-ui/compare/v0.0.3...v0.0.4) (2023-10-31)
-
-
-### Bug Fixes
-
-* change the branch from main to master. ([b1c6f93](https://github.com/dr1tch/evercam-ui/commit/b1c6f93eb233e0151f5e0c8eee7a9f76ab670b77))
 
 
 
