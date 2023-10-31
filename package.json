@@ -27,14 +27,14 @@
     "story:dev": "histoire dev",
     "story:build": "histoire build",
     "story:preview": "histoire preview",
-    "build": "pnpm build:lib && pnpm build:style && pnpm generate-ide-docs",
+    "build": "yarn build:lib && yarn build:style && yarn generate-ide-docs",
     "build:lib": "vite build",
     "build:style": "postcss src/style/main.css --verbose -o dist/styles.css",
     "typecheck": "vue-tsc --declaration --emitDeclarationOnly",
     "generate-ide-docs": "node scripts/generate-vetur.mjs && node scripts/generate-web-types.mjs",
-    "ci": "pnpm build",
-    "release": "pnpm ci && changeset publish",
-    "publish-ci": "pnpm publish "
+    "ci": "yarn build",
+    "release": "yarn ci && changeset publish",
+    "publish-ci": "yarn publish "
   },
   "devDependencies": {
     "@fontsource-variable/inter": "^5.0.8",
