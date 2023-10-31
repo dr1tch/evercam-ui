@@ -1,3 +1,12 @@
+## [0.0.14](https://github.com/dr1tch/evercam-ui/compare/v0.0.13...v0.0.14) (2023-10-31)
+
+
+### Bug Fixes
+
+* package name. ([a7ca09f](https://github.com/dr1tch/evercam-ui/commit/a7ca09f3b97000fc37336762b5f7991851884a48))
+
+
+
 ## [0.0.13](https://github.com/dr1tch/evercam-ui/compare/v0.0.12...v0.0.13) (2023-10-31)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * add public access to release script ([0c41aaf](https://github.com/dr1tch/evercam-ui/commit/0c41aaf58ba70c829309f5cc6327c517d34be305))
-
-
-
-## [0.0.9](https://github.com/dr1tch/evercam-ui/compare/v0.0.8...v0.0.9) (2023-10-31)
-
-
-### Bug Fixes
-
-* add env variables to pipeline ([cd210cf](https://github.com/dr1tch/evercam-ui/commit/cd210cfe31e3faa3c83294511f00ed0dee1f35cd))
 
 
 
