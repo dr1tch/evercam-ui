@@ -6,7 +6,7 @@
       width: '98%',
     }"
   >
-    <Variant title="Normal">
+    <Variant title="Normal VIDEO PLAYER">
       <template #default>
         <EVideoPlayer
           sources="
