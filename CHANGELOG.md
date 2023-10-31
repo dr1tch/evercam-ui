@@ -1,3 +1,12 @@
+## [0.0.6](https://github.com/dr1tch/evercam-ui/compare/v0.0.5...v0.0.6) (2023-10-31)
+
+
+### Bug Fixes
+
+* change the YARN CONFIGURATION ([729c1aa](https://github.com/dr1tch/evercam-ui/commit/729c1aa68af256f0ea58d0aa8f4fda8030c73f5c))
+
+
+
 ## [0.0.5](https://github.com/dr1tch/evercam-ui/compare/v0.0.4...v0.0.5) (2023-10-31)
 
 
