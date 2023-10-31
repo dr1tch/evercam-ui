@@ -1,4 +1,13 @@
-## 0.0.3 (2023-10-31)
+## [0.0.4](https://github.com/dr1tch/evercam-ui/compare/v0.0.3...v0.0.4) (2023-10-31)
+
+
+### Bug Fixes
+
+* change the branch from main to master. ([b1c6f93](https://github.com/dr1tch/evercam-ui/commit/b1c6f93eb233e0151f5e0c8eee7a9f76ab670b77))
+
+
+
+## [0.0.3](https://github.com/dr1tch/evercam-ui/compare/2710417702ac3e46d1448aa460fa487b1a6fd50e...v0.0.3) (2023-10-31)
 
 
 ### Bug Fixes
