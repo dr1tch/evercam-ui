@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply e-text-base e-font-normal;
+  }
+  h6 {
+    @apply e-text-xl e-font-normal;
+  }
+  h5 {
+    @apply e-text-2xl e-font-normal;
+  }
+  h4 {
+    @apply e-text-3xl e-font-normal;
+  }
+  h3 {
+    @apply e-text-4xl e-font-normal;
+  }
+  h2 {
+    @apply e-text-5xl e-font-normal;
+  }
+  h1 {
+    @apply e-text-6xl e-font-normal;
+  }
+}

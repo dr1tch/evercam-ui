@@ -1,0 +1,74 @@
+@import url("https://kit.fontawesome.com/56f5d1a004.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Typography patched line heights */
+  .e-text-xs {
+    line-height: 1rem;
+  }
+  .e-text-sm {
+    line-height: 1.25rem;
+  }
+  .e-text-base {
+    line-height: 1.5rem;
+  }
+  .e-text-lg {
+    line-height: 1.75rem;
+  }
+  .e-text-xl {
+    line-height: 1.75rem;
+  }
+  .e-text-2xl {
+    line-height: 2rem;
+  }
+  .e-text-3xl {
+    line-height: 2.25rem;
+  }
+  .e-text-4xl {
+    line-height: 2.5rem;
+  }
+  .e-text-5xl {
+    line-height: 3rem;
+  }
+  .e-text-6xl {
+    line-height: 3.75rem;
+  }
+  .e-text-7xl {
+    line-height: 4.5rem;
+  }
+  .e-text-8xl {
+    line-height: 6rem;
+  }
+  .e-text-9xl {
+    line-height: 8rem;
+  }
+
+  /* Typography custom sizes / weights */
+  .e-tiny {
+    @apply e-text-xs e-font-normal;
+  }
+  .e-caption {
+    @apply e-text-sm e-font-normal;
+  }
+  .e-body {
+    @apply e-text-base e-font-normal;
+  }
+  .e-title-2 {
+    @apply e-text-base e-font-bold;
+  }
+  .e-title-1 {
+    @apply e-text-lg e-font-bold;
+  }
+  .e-display-3 {
+    @apply e-text-7xl e-font-normal;
+  }
+  .e-display-2 {
+    @apply e-text-8xl e-font-normal;
+  }
+  .e-display-1 {
+    @apply e-text-9xl e-font-normal;
+  }
+}
