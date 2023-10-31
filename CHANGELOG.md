@@ -1,3 +1,12 @@
+## [0.0.10](https://github.com/dr1tch/evercam-ui/compare/v0.0.9...v0.0.10) (2023-10-31)
+
+
+### Bug Fixes
+
+* add public access to release script ([0c41aaf](https://github.com/dr1tch/evercam-ui/commit/0c41aaf58ba70c829309f5cc6327c517d34be305))
+
+
+
 ## [0.0.9](https://github.com/dr1tch/evercam-ui/compare/v0.0.8...v0.0.9) (2023-10-31)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * change the YARN CONFIGURATION ([729c1aa](https://github.com/dr1tch/evercam-ui/commit/729c1aa68af256f0ea58d0aa8f4fda8030c73f5c))
-
-
-
-## [0.0.5](https://github.com/dr1tch/evercam-ui/compare/v0.0.4...v0.0.5) (2023-10-31)
-
-
-### Bug Fixes
-
-* change the branch from main to master. ([badb9cc](https://github.com/dr1tch/evercam-ui/commit/badb9cc3240b28531ecea2e2195a1f5d50dc3786))
 
 
 
