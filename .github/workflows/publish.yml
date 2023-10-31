@@ -15,7 +15,6 @@ jobs:
         with:
           node-version: 16.x
           registry-url: "https://registry.npmjs.org"
-          scope: "@${{ github.repository_owner }}"
 
       - run: yarn install
       - name: Create Release Pull Request or Publish
@@ -23,10 +22,6 @@ jobs:
         uses: changesets/action@v1
         with:
           publish: yarn release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - run: yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
