@@ -1,3 +1,12 @@
+## [0.0.12](https://github.com/dr1tch/evercam-ui/compare/v0.0.11...v0.0.12) (2023-10-31)
+
+
+### Bug Fixes
+
+* publish pipeline problem ([376c743](https://github.com/dr1tch/evercam-ui/commit/376c7437414b4b1f8aff51ae4b16a5779298b45f))
+
+
+
 ## [0.0.11](https://github.com/dr1tch/evercam-ui/compare/v0.0.10...v0.0.11) (2023-10-31)
 
 ## 0.1.0
@@ -33,3 +42,4 @@
 ### Bug Fixes
 
 - changeset error. ([d33a228](https://github.com/dr1tch/evercam-ui/commit/d33a2287df35f0168a44dd9202cb130f157b1afe))
+
