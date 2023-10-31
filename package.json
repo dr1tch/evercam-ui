@@ -1,15 +1,12 @@
 {
-  "name": "@dr1tch/evercam-ui",
-  "version": "0.0.1",
+  "name": "@evercam/evercam-ui",
+  "version": "0.0.2",
   "description": "Evercam UI components library: Test to run ci to publish evercam-ui library ",
   "private": false,
   "license": "MIT",
   "author": "Evercam - Constuction Cameras",
   "readme": "README.md",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/evercam/evercam-frontend.git"
-  },
+  "repository": "https://github.com/dr1tch/evercam-ui",
   "main": "dist/index.umd.js",
   "module": "dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -69,5 +66,8 @@
     "tags": "dist/tags.json",
     "attributes": "dist/attributes.json"
   },
-  "web-types": "dist/web-types.json"
+  "web-types": "dist/web-types.json",
+  "publishConfig": {
+    "access": "public"
+  }
 }
