@@ -1,3 +1,12 @@
+## [0.0.2](https://github.com/dr1tch/evercam-ui/compare/v0.0.14...v0.0.2) (2023-10-31)
+
+
+### Bug Fixes
+
+* migrate again to pnpm ([dd75e78](https://github.com/dr1tch/evercam-ui/commit/dd75e787c210f8394b9bcf2e51f34c0e3d73c3ff))
+
+
+
 ## [0.0.14](https://github.com/dr1tch/evercam-ui/compare/v0.0.13...v0.0.14) (2023-10-31)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * add scope to publish pipeline ([7dfda56](https://github.com/dr1tch/evercam-ui/commit/7dfda5628bad9600ea807898033b504ad9cd98ad))
-
-
-
-## [0.0.10](https://github.com/dr1tch/evercam-ui/compare/v0.0.9...v0.0.10) (2023-10-31)
-
-
-### Bug Fixes
-
-* add public access to release script ([0c41aaf](https://github.com/dr1tch/evercam-ui/commit/0c41aaf58ba70c829309f5cc6327c517d34be305))
 
 
 
