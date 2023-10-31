@@ -36,7 +36,7 @@
     "typecheck": "vue-tsc --declaration --emitDeclarationOnly",
     "generate-ide-docs": "node scripts/generate-vetur.mjs && node scripts/generate-web-types.mjs",
     "ci": "yarn build",
-    "release": "yarn build && changeset publish",
+    "release": "yarn ci && changeset publish",
     "publish-ci": "yarn publish "
   },
   "devDependencies": {
