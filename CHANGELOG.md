@@ -1,3 +1,12 @@
+## [0.0.11](https://github.com/dr1tch/evercam-ui/compare/v0.0.10...v0.0.11) (2023-10-31)
+
+
+### Bug Fixes
+
+* add scope to publish pipeline ([7dfda56](https://github.com/dr1tch/evercam-ui/commit/7dfda5628bad9600ea807898033b504ad9cd98ad))
+
+
+
 ## [0.0.10](https://github.com/dr1tch/evercam-ui/compare/v0.0.9...v0.0.10) (2023-10-31)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * changeset error. ([d33a228](https://github.com/dr1tch/evercam-ui/commit/d33a2287df35f0168a44dd9202cb130f157b1afe))
-
-
-
-## [0.0.6](https://github.com/dr1tch/evercam-ui/compare/v0.0.5...v0.0.6) (2023-10-31)
-
-
-### Bug Fixes
-
-* change the YARN CONFIGURATION ([729c1aa](https://github.com/dr1tch/evercam-ui/commit/729c1aa68af256f0ea58d0aa8f4fda8030c73f5c))
 
 
 
