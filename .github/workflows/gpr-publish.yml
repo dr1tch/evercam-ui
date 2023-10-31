@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: 16.x
           registry-url: https://npm.pkg.github.com/
-          scope: "@driiitch/evercam-ui"
+          scope: "@dr1tch/evercam-ui"
       - run: yarn
       - run: yarn release
         env:
