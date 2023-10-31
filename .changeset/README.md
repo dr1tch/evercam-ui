@@ -6,3 +6,51 @@ find the full documentation for it [in our repository](https://github.com/change
 
 We have a quick list of common questions to get you started engaging with this project in
 [our documentation](https://github.com/changesets/changesets/blob/main/docs/common-questions.md)
+
+# name: Publish
+
+# on:
+
+# push:
+
+# branches:
+
+# - "master"
+
+# concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+# jobs:
+
+# publish:
+
+# runs-on: ubuntu-latest
+
+# steps:
+
+# - uses: actions/checkout@v3
+
+# - uses: actions/setup-node@v3
+
+# with:
+
+# node-version: 16.x
+
+# registry-url: "https://registry.npmjs.org"
+
+# - run: yarn install --frozen-lockfile
+
+# - name: Create Release Pull Request or Publish
+
+# id: changesets
+
+# uses: changesets/action@v1
+
+# with:
+
+# publish: yarn release
+
+# env:
+
+# GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+# NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
