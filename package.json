@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@fontsource-variable/inter": "^5.0.8",
-    "@fortawesome/fontawesome-free": "^5.15.3",
+    "@fortawesome/fontawesome-free": "^6.4.2",
     "@histoire/plugin-vue2": "^0.17.1",
     "@histoire/vendors": "^0.17.0",
     "@vitejs/plugin-vue2": "^2.2.0",
@@ -50,8 +50,8 @@
     "typescript": "^5.2.2",
     "vite": "^4.4.9",
     "vite-plugin-dts": "^3.6.0",
-    "vscode-oniguruma": "^1.6.1",
-    "vscode-textmate": "^9.0.0",
+    "vscode-oniguruma": "^2.0.1",
+    "vscode-textmate": "^6.0.0",
     "vue": "^3.3.8",
     "vue-template-compiler": "^2.7.14",
     "vue-tsc": "^1.8.15",
@@ -59,7 +59,7 @@
   },
   "peerDependencies": {
     "@fontsource-variable/inter": "^5.0.8",
-    "@fortawesome/fontawesome-free": "^5.15.3",
+    "@fortawesome/fontawesome-free": "^6.4.2",
     "vue": "^3.3.8"
   },
   "vetur": {

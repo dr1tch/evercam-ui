@@ -24,12 +24,9 @@ jobs:
         run: yarn
 
       - name: Creating .npmrc
-        run: |
-          cat << EOF > "$HOME/.npmrc"
-            //registry.npmjs.org/:_authToken=$NPM_TOKEN
-          EOF
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
       - name: Debug NPM_TOKEN
-        run: echo "NPM_TOKEN = $NPM_TOKEN, ${{ secrets.npm_token }}, ${{ env.NPM_TOKEN }}, ${{ github.token }}"
+        run: echo "NPM_TOKEN = $NPM_TOKEN, GITHUB_TOKEN=$GITHUB_TOKEN"
       - name: View .npmrc
         run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN"
 
