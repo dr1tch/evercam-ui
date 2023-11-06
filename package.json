@@ -50,7 +50,7 @@
     "typescript": "^5.2.2",
     "vite": "^4.4.9",
     "vite-plugin-dts": "^3.6.0",
-    "vscode-oniguruma": "^1.6.1",
+    "vscode-oniguruma": "^2.0.1",
     "vscode-textmate": "^6.0.0",
     "vue": "^2.7.14",
     "vue-template-compiler": "^2.7.14",
