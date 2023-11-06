@@ -1,24 +1,36 @@
-name: Publish Package to npmjs
-on:
-  release:
-    types: [published]
-  push:
-    branches:
-      - master
+name: Test, Publish, & Release
+on: [push]
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x]
     steps:
-      - uses: actions/checkout@v4
-      # Setup .npmrc file to publish to npm
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
         with:
-          node-version: "20.x"
-          registry-url: "https://registry.npmjs.org"
-          # Defaults to the user or organization that owns the workflow file
-          scope: "@dr1tch"
-      - run: yarn install --frozen-lockfile
-      - run: yarn build && yarn release
+          node-version: ${{ matrix.node-version }}
+      - run: yarn
+      - run: yarn test
+  publish:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+          registry-url: https://registry.npmjs.org/
+      - run: yarn
+      - run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+  create-release:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - uses: actions/checkout@master
+      - uses: Roang-zero1/github-create-release-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
