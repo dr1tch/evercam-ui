@@ -5,27 +5,10 @@
     data-volume-level="high"
   >
     <video
-      v-if="!hasMultipleSources"
-      ref="player"
-      :src="sources"
-      :controls="false"
-      preload="auto"
-      v-bind="videoOptions"
-      :volume="volume"
-      @ended="handleEnded"
-      @click="togglePlay"
-      @loadedmetadata="getDuration"
-      @timeupdate="handleTimeUpdate"
-      @loadeddata="handleLoading"
-      v-on="videoListeners"
-    />
-    <video
-      v-else
       ref="player"
       :controls="false"
       preload="auto"
       v-bind="videoOptions"
-      :volume="volume"
       @ended="handleEnded"
       @click="togglePlay"
       @loadedmetadata="getDuration"
@@ -34,7 +17,7 @@
       v-on="videoListeners"
     >
       <source
-        v-for="source in sources"
+        v-for="source in hasMultipleSources ? sources : [{ src: sources }]"
         :key="source.src"
         :src="source.src"
         :type="source.type"
@@ -43,72 +26,20 @@
     <div v-if="isLoading" class="spinner-container">
       <ESpinner size="9xl" opacity="0.6" :dark="true" />
     </div>
+
     <div :class="['video-controls-container', withControls]">
       <div class="controls">
         <button
           ref="playPauseBtn"
-          class="play-pause-btn"
+          class="play-pause-btn fa-lg fa-solid"
+          :class="{
+            'fa-play': !playing,
+            'fa-pause': playing,
+          }"
           :title="playing ? 'pause' : 'play'"
           @click="togglePlay"
-        >
-          <svg v-if="!playing" class="play-icon" viewBox="0 0 24 24">
-            <path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" />
-          </svg>
-          <svg v-else class="pause-icon" viewBox="0 0 24 24">
-            <path fill="currentColor" d="M14,19H18V5H14M6,19H10V5H6V19Z" />
-          </svg>
-        </button>
-        <button class="fsBtn fa fa-fast-backward" @click="skip(-5)"></button>
-        <button class="fsBtn fa fa-fast-forward" @click="skip(5)"></button>
-        <div class="volume-container">
-          <button
-            ref="muteBtn"
-            class="mute-btn"
-            :title="videoMuted ? 'Unmute' : 'Mute'"
-            @click="toggleMute"
-          >
-            <svg
-              v-if="volume > 0.5 && !videoMuted"
-              class="volume-high-icon"
-              viewBox="0 0 24 24"
-            >
-              <path
-                fill="currentColor"
-                d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"
-              />
-            </svg>
-            <svg
-              v-if="volume <= 0.5 && !videoMuted"
-              class="volume-low-icon"
-              viewBox="0 0 24 24"
-            >
-              <path
-                fill="currentColor"
-                d="M5,9V15H9L14,20V4L9,9M18.5,12C18.5,10.23 17.5,8.71 16,7.97V16C17.5,15.29 18.5,13.76 18.5,12Z"
-              />
-            </svg>
-            <svg
-              v-if="videoMuted"
-              class="volume-muted-icon"
-              viewBox="0 0 24 24"
-            >
-              <path
-                fill="currentColor"
-                d="M12,4L9.91,6.09L12,8.18M4.27,3L3,4.27L7.73,9H3V15H7L12,20V13.27L16.25,17.53C15.58,18.04 14.83,18.46 14,18.7V20.77C15.38,20.45 16.63,19.82 17.68,18.96L19.73,21L21,19.73L12,10.73M19,12C19,12.94 18.8,13.82 18.46,14.64L19.97,16.15C20.62,14.91 21,13.5 21,12C21,7.72 18,4.14 14,3.23V5.29C16.89,6.15 19,8.83 19,12M16.5,12C16.5,10.23 15.5,8.71 14,7.97V10.18L16.45,12.63C16.5,12.43 16.5,12.21 16.5,12Z"
-              />
-            </svg>
-          </button>
-          <input
-            ref="volumeSlider"
-            class="volume-slider"
-            type="range"
-            min="0"
-            max="1"
-            step="any"
-            :value="volume"
-            @input="handleVolumeChange"
-          />
-        </div>
+        />
+
         <div class="duration-container">
           <div ref="currentTimeElem" class="current-time">
             {{ currentTime }}
@@ -116,7 +47,6 @@
           /
           <div ref="totalTimeElem" class="total-time">{{ videoLength }}</div>
         </div>
-        <!-- ############# Suggestion one: custom timeline ######### -->
         <div
           ref="timelineContainer"
           class="timeline-container"
@@ -127,52 +57,16 @@
             <div class="thumb-indicator"></div>
           </div>
         </div>
-        <!--
-            ############# Suggestion 2: input range timeline ######### 
-            <VideoTrack
-              :percentage="percentagePlayed"
-              @seek="seekToPercentage"
-            /> 
-        -->
-        <button
-          ref="speedBtn"
-          class="speed-btn wide-btn"
-          @click="changePlaybackSpeed"
-        >
-          {{ playbackRate }}
-        </button>
-        <button
-          ref="miniPlayerBtn"
-          class="mini-player-btn"
-          title="Picture in picture"
-          @click="toggleMiniPlayerMode"
-        >
-          <svg class="picture-on-picture" viewBox="0 0 24 24">
-            <path
-              fill="currentColor"
-              d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zm-10-7h9v6h-9z"
-            />
-          </svg>
-        </button>
 
         <button
           ref="fullScreenBtn"
-          class="full-screen-btn"
+          class="full-screen-btn fa-solid"
+          :class="{
+            'fa-expand': !isFullscreen,
+            'fa-compress': isFullscreen,
+          }"
           @click="toggleFullscreenMode"
-        >
-          <svg v-if="!isFullscreen" class="open" viewBox="0 0 24 24">
-            <path
-              fill="currentColor"
-              d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"
-            />
-          </svg>
-          <svg v-else class="close" viewBox="0 0 24 24">
-            <path
-              fill="currentColor"
-              d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"
-            />
-          </svg>
-        </button>
+        />
       </div>
     </div>
   </div>
@@ -180,11 +74,10 @@
 
 <script lang="ts">
 import Vue, { PropType } from "vue"
-// import VideoTrack from "@/components/EVideoPlayer/EVideoPlayerTrack.vue"
-import { makeFullScreen, exitFullScreen, isFullScreen } from "@/utils"
+import { makeFullScreen, exitFullScreen } from "@/utils"
 import ESpinner from "@/components/ESpinner.vue"
 // types:
-export type IVideoSources =
+export type VideoSources =
   | string
   | {
       type: string
@@ -197,7 +90,7 @@ const leadingZeroFormatter = new Intl.NumberFormat(undefined, {
 })
 
 // List of events so we can bind them on mount
-export const EVENTS = [
+export const VIDEO_PLAYER_EVENTS = [
   "play",
   "pause",
   "ended",
@@ -227,11 +120,10 @@ export default Vue.extend({
   name: "VideoPlayer",
   components: {
     ESpinner,
-    // VideoTrack
   },
   props: {
     sources: {
-      type: (Array as PropType<IVideoSources>) || String,
+      type: (Array as PropType<VideoSources>) || String,
       required: true,
     },
     videoListeners: {
@@ -245,10 +137,8 @@ export default Vue.extend({
   },
   data() {
     return {
-      isSeeking: false,
       playing: false,
       percentagePlayed: 0,
-      videoMuted: false,
       videoLength: "0:00",
       duration: 0,
       videoDuration: 0,
@@ -256,12 +146,9 @@ export default Vue.extend({
       realtime: 0,
       isScrubbing: false,
       wasPaused: false,
-      volume: 1,
       isFullscreen: false,
       isFinished: false,
       isLoading: true,
-      playbackRate: "1x",
-      isMiniPlayerMode: false,
     }
   },
   computed: {
@@ -278,73 +165,29 @@ export default Vue.extend({
     withControls() {
       const videoOptions = this.videoOptions as Partial<HTMLVideoElement>
 
-      return this.videoOptions &&
-        Object.keys(this.videoOptions).includes("controls") &&
-        videoOptions.controls === false
-        ? "hide"
-        : ""
+      return videoOptions?.controls === false ? "hide" : ""
     },
   },
   mounted() {
     this.bindEvents()
-    const playerRef = this.$refs.player as HTMLVideoElement
-    if (playerRef && playerRef.muted) {
-      this.setMuted(true)
-    }
-    if (playerRef)
-      document.addEventListener("mouseup", (e) => {
-        if (this.isScrubbing) this.toggleScrubbing(e)
-      })
-    window.addEventListener("keydown", this.handleKeyDown)
-    if (isFullScreen()) {
-      document.addEventListener("fullscreenchange", this.handleFullscreenChange)
-      document.addEventListener(
-        "webkitfullscreenchange",
-        this.handleFullscreenChange
-      )
-      document.addEventListener(
-        "mozfullscreenchange",
-        this.handleFullscreenChange
-      )
-      document.addEventListener(
-        "MSFullscreenChange",
-        this.handleFullscreenChange
-      )
-    } else {
-      console.log("Fullscreen API is not supported in this browser.")
-    }
+    this.initializePlayer()
+    this.initializeFullscreenListeners()
   },
   destroyed() {
-    window.removeEventListener("keydown", this.handleKeyDown)
-    document.removeEventListener("mouseup", (e) => {
-      if (this.isScrubbing) this.toggleScrubbing(e)
-    })
-    if (isFullScreen()) {
-      document.removeEventListener(
-        "fullscreenchange",
-        this.handleFullscreenChange
-      )
-      document.removeEventListener(
-        "webkitfullscreenchange",
-        this.handleFullscreenChange
-      )
-      document.removeEventListener(
-        "mozfullscreenchange",
-        this.handleFullscreenChange
-      )
-      document.removeEventListener(
-        "MSFullscreenChange",
-        this.handleFullscreenChange
-      )
-    } else {
-      console.log("Fullscreen API is not supported in this browser.")
-    }
+    this.unbindEvents()
+    this.destroyPlayer()
+    this.removeFullscreenListeners()
   },
 
   methods: {
     bindEvents() {
-      EVENTS.forEach((event) => {
+      VIDEO_PLAYER_EVENTS.forEach((event) => {
         this.bindVideoEvent(event)
+      })
+    },
+    unbindEvents() {
+      VIDEO_PLAYER_EVENTS.forEach((event) => {
+        this.unbindVideoEvent(event)
       })
     },
     bindVideoEvent(which: string) {
@@ -370,15 +213,119 @@ export default Vue.extend({
         true
       )
     },
+    unbindVideoEvent(which: string) {
+      const player = this.$refs.player as HTMLVideoElement
+      const timelineContainer = this.$refs.timelineContainer as HTMLDivElement
+      player.addEventListener(
+        which,
+        (event) => {
+          if (which === "loadeddata") {
+            this.videoLength = formatDuration(player.duration)
+          }
 
+          if (which === "timeupdate") {
+            this.percentagePlayed = (player.currentTime / player.duration) * 100
+            timelineContainer.style.setProperty(
+              "--progress-position",
+              this.percentagePlayed.toString()
+            )
+          }
+
+          this.$emit(which, { event, player: this })
+        },
+        true
+      )
+    },
+    initializePlayer() {
+      const playerRef = this.$refs.player as HTMLVideoElement
+      if (!playerRef) {
+        return
+      }
+      if (playerRef.autoplay) {
+        this.setPlaying(true)
+      }
+      document.addEventListener("mouseup", (e) => {
+        if (this.isScrubbing) {
+          this.toggleScrubbing(e)
+        }
+      })
+      document.addEventListener("keydown", this.handleKeyDown)
+    },
+    destroyPlayer() {
+      window.removeEventListener("keydown", this.handleKeyDown)
+      document.removeEventListener("mouseup", (e) => {
+        if (this.isScrubbing) {
+          this.toggleScrubbing(e)
+        }
+      })
+    },
+    removeFullscreenListeners() {
+      if (
+        document.fullscreenEnabled ||
+        document.webkitFullscreenEnabled ||
+        document.mozFullScreenEnabled ||
+        document.msFullscreenEnabled
+      ) {
+        document.removeEventListener(
+          "fullscreenchange",
+          this.handleFullscreenChange
+        )
+        document.removeEventListener(
+          "webkitfullscreenchange",
+          this.handleFullscreenChange
+        )
+        document.removeEventListener(
+          "mozfullscreenchange",
+          this.handleFullscreenChange
+        )
+        document.removeEventListener(
+          "MSFullscreenChange",
+          this.handleFullscreenChange
+        )
+      } else {
+        console.log("Fullscreen API is not supported in this browser.")
+      }
+    },
+    initializeFullscreenListeners() {
+      if (
+        document.fullscreenEnabled ||
+        document.webkitFullscreenEnabled ||
+        document.mozFullScreenEnabled ||
+        document.msFullscreenEnabled
+      ) {
+        document.addEventListener(
+          "fullscreenchange",
+          this.handleFullscreenChange
+        )
+        document.addEventListener(
+          "webkitfullscreenchange",
+          this.handleFullscreenChange
+        )
+        document.addEventListener(
+          "mozfullscreenchange",
+          this.handleFullscreenChange
+        )
+        document.addEventListener(
+          "MSFullscreenChange",
+          this.handleFullscreenChange
+        )
+      } else {
+        console.log("Fullscreen API is not supported in this browser.")
+      }
+    },
     handleFullscreenChange() {
       if (
-        isFullScreen() ||
+        document.fullscreenElement ||
+        document.mozFullScreenElement ||
+        document.webkitFullscreenElement ||
+        document.msFullscreenElement ||
         (window.innerWidth == screen.width &&
           window.innerHeight == screen.height)
-      )
+      ) {
         this.isFullscreen = true
-      else this.isFullscreen = false
+      } else {
+        this.isFullscreen = false
+      }
     },
 
     isLooped() {
@@ -395,33 +342,25 @@ export default Vue.extend({
       this.isLoading = false
     },
     play() {
-      if (this.$refs.player) {
-        const playerRef = this.$refs.player as HTMLVideoElement
-        const playPromise = playerRef.play()
-        if (playPromise !== undefined)
-          playerRef
-            .play()
-            .then(() => this.setPlaying(true))
-            .catch(console.error)
+      const playerRef = this.$refs.player as HTMLVideoElement
+      if (!playerRef) {
+        return
       }
-    },
-    handleVolumeChange(e: Event) {
-      const player = this.$refs.player as HTMLVideoElement
-      const inputTarget = e.target as HTMLInputElement
-      player.volume = Number(inputTarget.value)
-      player.muted = Number(inputTarget.value) === 0
-      this.setVolume(Number(inputTarget.value))
-      this.setMuted(Number(inputTarget.value) === 0)
-    },
-    setVolume(state: number) {
-      this.volume = state
+      const playPromise = playerRef.play()
+      if (playPromise !== undefined) {
+        playerRef
+          .play()
+          .then(() => this.setPlaying(true))
+          .catch(console.error)
+      }
     },
     pause() {
-      if (this.$refs.player) {
-        const playerRef = this.$refs.player as HTMLVideoElement
-        playerRef.pause()
-        this.setPlaying(false)
+      const playerRef = this.$refs.player as HTMLVideoElement
+      if (!playerRef) {
+        return
       }
+      playerRef.pause()
+      this.setPlaying(false)
     },
     togglePlay() {
       if (this.playing) {
@@ -434,11 +373,12 @@ export default Vue.extend({
       this.playing = state
     },
     seekToPercentage(percentage: number) {
-      if (this.$refs.player) {
-        const playerRef = this.$refs.player as HTMLVideoElement
-        const currentTime = (percentage / 100) * playerRef.duration
-        playerRef.currentTime = currentTime
+      const playerRef = this.$refs.player as HTMLVideoElement
+      if (!playerRef) {
+        return
       }
+      const currentTime = (percentage / 100) * playerRef.duration
+      playerRef.currentTime = currentTime
     },
     convertTimeToDuration(seconds: number) {
       // @ts-ignore
@@ -446,45 +386,7 @@ export default Vue.extend({
         .join(":")
         .replace(/\b(\d)\b/g, "0$1")
     },
-    // buffering() {
-    //   const playerRef = this.$refs.player as HTMLVideoElement
-    //   const timelineContainer = this.$refs.timelineContainer as HTMLDivElement
-    //   const bufferEnd = playerRef.buffered.end(playerRef.buffered.length - 1)
-    //   const duration = playerRef.duration
-    //   if (duration > 0) {
-    //     const value = (bufferEnd / duration) * 100
-    //     console.log({ bufferedValue: value })
-    //     this.bufferingValue = value
-    //     timelineContainer.style.setProperty(
-    //       "--preview-position",
-    //       value.toString()
-    //     )
-    //   }
-    // },
-    mute() {
-      if (this.$refs.player) {
-        const playerRef = this.$refs.player as HTMLVideoElement
-        playerRef.muted = true
-        this.setMuted(true)
-      }
-    },
-    unmute() {
-      if (this.$refs.player) {
-        const playerRef = this.$refs.player as HTMLVideoElement
-        playerRef.muted = false
-        this.setMuted(false)
-      }
-    },
-    toggleMute() {
-      if (this.videoMuted) {
-        this.unmute()
-      } else {
-        this.mute()
-      }
-    },
-    setMuted(state: boolean) {
-      this.videoMuted = state
-    },
+
     closeFullscreenMode() {
       if (document.fullscreenElement) {
         exitFullScreen().then(() => {
@@ -505,19 +407,13 @@ export default Vue.extend({
       }
     },
     toggleFullscreenMode() {
-      if (this.isFullscreen) this.closeFullscreenMode()
-      else this.openFullscreenMode()
-    },
-    toggleMiniPlayerMode() {
-      const player = this.$refs.player as HTMLVideoElement
-      if (this.isMiniPlayerMode) {
-        document.exitPictureInPicture()
-        this.isMiniPlayerMode = false
+      if (this.isFullscreen) {
+        this.closeFullscreenMode()
       } else {
-        player.requestPictureInPicture()
-        this.isMiniPlayerMode = true
+        this.openFullscreenMode()
       }
     },
+
     getDuration() {
       const player = this.$refs.player as HTMLVideoElement
       this.videoLength = formatDuration(player.duration)
@@ -526,34 +422,36 @@ export default Vue.extend({
     handleTimeUpdate() {
       const player = this.$refs.player as HTMLVideoElement
       const timelineContainer = this.$refs.timelineContainer as HTMLDivElement
-      if (player && timelineContainer) {
-        this.currentTime = formatDuration(player.currentTime)
-        this.realtime = player.currentTime
-        const percent = Number(this.realtime) / Number(this.videoDuration)
+      if (!player || !timelineContainer) {
+        return
+      }
+      this.currentTime = formatDuration(player.currentTime)
+      this.realtime = player.currentTime
+      const percent = Number(this.realtime) / Number(this.videoDuration)
+      timelineContainer.style.setProperty(
+        "--progress-position",
+        percent.toString()
+      )
+    },
+    handleTimelineUpdate(e: MouseEvent) {
+      const player = this.$refs.player as HTMLVideoElement
+      if (!document.body.contains(player)) {
+        return
+      }
+      const timelineContainer = this.$refs.timelineContainer as HTMLDivElement
+      const rect = timelineContainer.getBoundingClientRect()
+      const percent =
+        Math.min(Math.max(0, e.x - rect.x), rect.width) / rect.width
+      timelineContainer.style.setProperty(
+        "--preview-position",
+        percent.toString()
+      )
+      if (this.isScrubbing) {
+        e.preventDefault()
         timelineContainer.style.setProperty(
           "--progress-position",
           percent.toString()
         )
-      }
-    },
-    handleTimelineUpdate(e: MouseEvent) {
-      const player = this.$refs.player as HTMLVideoElement
-      if (document.body.contains(player)) {
-        const timelineContainer = this.$refs.timelineContainer as HTMLDivElement
-        const rect = timelineContainer.getBoundingClientRect()
-        const percent =
-          Math.min(Math.max(0, e.x - rect.x), rect.width) / rect.width
-        timelineContainer.style.setProperty(
-          "--preview-position",
-          percent.toString()
-        )
-        if (this.isScrubbing) {
-          e.preventDefault()
-          timelineContainer.style.setProperty(
-            "--progress-position",
-            percent.toString()
-          )
-        }
       }
     },
     skip(duration = 5) {
@@ -565,46 +463,46 @@ export default Vue.extend({
       const timelineContainer = this.$refs.timelineContainer as HTMLDivElement
       const videoContainer = this.$refs.videoContainer as HTMLDivElement
       const player = this.$refs.player as HTMLVideoElement
-      if (player) {
-        const rect = timelineContainer.getBoundingClientRect()
-        const percent =
-          Math.min(Math.max(0, e.x - rect.x), rect.width) / rect.width
-        this.isScrubbing = (e.buttons & 1) === 1
-        videoContainer.classList.toggle("scrubbing", this.isScrubbing)
-        if (this.isScrubbing) {
-          this.wasPaused = player.paused
-          await player.pause()
-          this.handleTimelineUpdate(e)
-        } else {
-          this.realtime = percent * this.videoDuration
-          player.currentTime = percent * this.videoDuration
-          if (!this.wasPaused) {
-            const playPromise = player.play()
-            // @see issue: https://developer.chrome.com/blog/play-request-was-interrupted/
-            if (playPromise !== undefined) {
-              playPromise
-                .then(() => this.handleTimelineUpdate(e))
-                .catch(console.error)
-            }
-          }
-        }
+      if (!player) {
+        return
+      }
+      const rect = timelineContainer.getBoundingClientRect()
+      const percent =
+        Math.min(Math.max(0, e.x - rect.x), rect.width) / rect.width
+      this.isScrubbing = (e.buttons & 1) === 1
+      videoContainer.classList.toggle("scrubbing", this.isScrubbing)
+      if (this.isScrubbing) {
+        this.wasPaused = player.paused
+        await player.pause()
+        this.handleTimelineUpdate(e)
+
+        return
+      }
+      this.realtime = percent * this.videoDuration
+      player.currentTime = percent * this.videoDuration
+      if (this.wasPaused) {
+        return
+      }
+      const playPromise = player.play()
+      // @see issue: https://developer.chrome.com/blog/play-request-was-interrupted/
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => this.handleTimelineUpdate(e))
+          .catch(console.error)
       }
     },
 
-    changePlaybackSpeed() {
-      const player = this.$refs.player as HTMLVideoElement
-
-      let newPlaybackRate = player.playbackRate + 0.25
-      if (newPlaybackRate > 2) newPlaybackRate = 0.25
-      if (this.$refs.player) player.playbackRate = newPlaybackRate
-      this.playbackRate = `${newPlaybackRate}x`
-    },
     handleKeyDown(e: KeyboardEvent) {
       const tagName = document.activeElement?.tagName.toLowerCase()
-      if (tagName === "input") return
+      if (tagName === "input") {
+        return
+      }
       switch (e.key.toLowerCase()) {
         case " ":
-          if (tagName === "button") return
+          if (tagName === "button") {
+            return
+          }
+          this.togglePlay()
           break
         case "k":
           this.togglePlay()
@@ -619,20 +517,6 @@ export default Vue.extend({
           this.openFullscreenMode()
           this.isFullscreen = true
 
-          break
-        case "i":
-          this.toggleMiniPlayerMode()
-          break
-        case "m":
-          this.toggleMute()
-          break
-        case "arrowleft":
-        case "j":
-          this.skip(-5)
-          break
-        case "arrowright":
-        case "l":
-          this.skip(5)
           break
       }
     },
@@ -661,17 +545,11 @@ export default Vue.extend({
   flex-direction: column;
   justify-content: center;
   margin: 0 auto;
-  /* background-color: black; */
 }
 
-.video-container.theater,
 .video-container.full-screen {
   max-width: initial;
   width: 100%;
-}
-
-.video-container.theater {
-  max-height: 90vh;
 }
 
 .video-container.full-screen {
@@ -681,7 +559,6 @@ export default Vue.extend({
 video {
   width: 100%;
   height: inherit;
-  object-fit: cover;
 }
 
 .video-controls-container {
@@ -718,7 +595,7 @@ video {
 .video-controls-container .controls {
   display: flex;
   gap: 0.5rem;
-  padding: 0.25rem;
+  padding: 0.75rem 1rem;
   align-items: center;
   width: 100%;
 }
@@ -728,9 +605,9 @@ video {
   border: none;
   color: inherit;
   padding: 0;
-  height: 24px;
-  width: 24px;
-  font-size: 1.1rem;
+  height: 32px;
+  width: 32px;
+  font-size: 1.35rem;
   cursor: pointer;
   opacity: 0.85;
   transition: opacity 150ms ease-in-out;
@@ -738,42 +615,6 @@ video {
 
 .video-controls-container .controls button:hover {
   opacity: 1;
-}
-
-.pause-icon,
-.play-icon,
-.picture-on-picture,
-.open,
-.close,
-.speed-btn.wide-btn {
-  height: 24px;
-  width: 24px;
-}
-
-.video-container.theater .tall {
-  display: none;
-}
-
-.video-container:not(.theater) .wide {
-  display: none;
-}
-
-.volume-container {
-  display: flex;
-  align-items: center;
-}
-
-.volume-slider {
-  width: 0;
-  transform-origin: left;
-  transform: scaleX(0);
-  transition: width 150ms ease-in-out, transform 150ms ease-in-out;
-}
-
-.volume-container:hover .volume-slider,
-.volume-slider:focus-within {
-  width: 100px;
-  transform: scaleX(1);
 }
 
 .duration-container {

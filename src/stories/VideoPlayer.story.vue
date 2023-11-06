@@ -6,13 +6,13 @@
       width: '98%',
     }"
   >
-    <Variant title="Normal VIDEO PLAYER">
+    <Variant title="Normal">
       <template #default>
         <EVideoPlayer
           sources="
-              https://d2of6bhnpl91ni.cloudfront.net/cms/Tutorial-video-maker-3a570d8068.mp4
+              http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4
             "
-          :video-props="videoProps"
+          :video-options="videoProps"
         />
       </template>
     </Variant>
@@ -35,8 +35,10 @@ export default {
   computed: {
     videoProps() {
       return {
-        poster:
-          "https://images.unsplash.com/photo-1583024011792-b165975b52f5?auto=format&fit=crop&q=80&w=1932&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        description:
+          "HBO GO now works with Chromecast -- the easiest way to enjoy online video on your TV. For when you want to settle into your Iron Throne to watch the latest episodes. For $35.\nLearn how to use Chromecast with HBO GO and more at google.com/chromecast.",
+
+        title: "For Bigger Blazes",
         controls: true,
       }
     },
