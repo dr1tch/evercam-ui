@@ -1,6 +1,6 @@
 {
   "name": "evercam-ui-test",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Evercam UI components library: Test to run ci to publish evercam-ui library ",
   "private": false,
   "license": "MIT",
