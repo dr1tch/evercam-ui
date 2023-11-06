@@ -28,6 +28,8 @@ jobs:
           cat << EOF > "$HOME/.npmrc"
             //registry.npmjs.org/:_authToken=$NPM_TOKEN
           EOF
+      - name: Debug NPM_TOKEN
+        run: echo "NPM_TOKEN = $NPM_TOKEN"
       - name: View .npmrc
         run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN"
 
