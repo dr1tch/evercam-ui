@@ -1,10 +1,16 @@
-import { BadgeSizes, AvatarSizes, IconSizes, BadgeColors } from "@/constants"
+import {
+  BadgeSizes,
+  AvatarSizes,
+  IconSizes,
+  BaseColors,
+  ButtonSizes,
+} from "@/constants"
 
 export enum Size {
   dot = "dot",
   xs = "xs",
   sm = "sm",
-  md = "base",
+  md = "md",
   base = "base",
   lg = "lg",
   xl = "xl",
@@ -26,16 +32,31 @@ export enum BaseColor {
   primary = "primary",
   brand = "brand",
   default = "default",
+  white = "white",
 }
 
-export type TBadgeSize = (typeof BadgeSizes)[number]
+export enum EButtonVariants {
+  solid = "solid",
+  outlined = "outlined",
+  link = "link",
+}
 
+export enum EPlacement {
+  start = "start",
+  end = "end",
+}
+
+// Sizes of Atoms
 export type TAvatarSize = (typeof AvatarSizes)[number]
-
+export type TBadgeSize = (typeof BadgeSizes)[number]
+export type TButtonSize = (typeof ButtonSizes)[number]
 export type TIconSize = (typeof IconSizes)[number]
 
-export type TBadgeColor = (typeof BadgeColors)[number]
+// Colors of Atoms
+export type TBadgeColor = (typeof BaseColors)[number]
+export type TButtonColor = (typeof BaseColors)[number]
 
+// other types
 export type TailwindColorClass = string
 
 export type FlexJustifyContent =
@@ -68,5 +89,25 @@ export type FlexAlignSelf =
   | "end"
   | "start"
   | "stretch"
+// export type TFontAwesomeIcons
+export type TFontAwesomePrefix =
+  | "fa"
+  | "fa-solid"
+  | "fas"
+  | "fa-regular"
+  | "far"
+  | "fa-light"
+  | "fal"
+  | "fa-duotone"
+  | "fad"
+  | "fa-thin"
+  | "fat"
+  | "fa-kit"
+  | "fak"
+
+export type TFontAwesomeIconName = string
+
+export type TFontAwesomeIconCode =
+  `${TFontAwesomePrefix} fa-${TFontAwesomeIconName}`
 
 export default {}

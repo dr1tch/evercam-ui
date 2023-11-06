@@ -1,5 +1,6 @@
 import EAvatar from "@/components/EAvatar.vue"
 import EBadge from "@/components/EBadge.vue"
+import EButton from "./components/EButton.vue"
 import EIcon from "@/components/EIcon.vue"
 import ESpinner from "@/components/ESpinner.vue"
 import ERow from "@/components/ERow.vue"
@@ -9,6 +10,7 @@ import { VueConstructor } from "vue"
 export const components = {
   EAvatar,
   EBadge,
+  EButton,
   EIcon,
   ESpinner,
   ERow,
@@ -24,7 +26,7 @@ export default {
   },
 }
 
-export { EAvatar, EBadge, EIcon, ESpinner, ERow, ECol }
+export { EAvatar, EBadge, EButton, EIcon, ESpinner, ERow, ECol }
 
 export * from "@/constants"
 

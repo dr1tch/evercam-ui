@@ -1,4 +1,13 @@
-import { AvatarSizes, BadgeColors, BadgeSizes, TextSizes } from "../constants"
+import {
+  AvatarSizes,
+  BaseColors,
+  BadgeSizes,
+  TextSizes,
+  ButtonSizes,
+  ButtonVariants,
+  ButtonColors,
+  KitIcons,
+} from "../constants"
 
 function capitalizeFirstLetter(inputString: string) {
   if (inputString.length === 0) return inputString
@@ -13,7 +22,7 @@ export const TextSizeOptions = Object.keys(TextSizes).map((s) => ({
   label: s.toUpperCase(),
 }))
 
-export const BadgeColorOptions = BadgeColors.map((c) => ({
+export const BaseColorOptions = BaseColors.map((c: string) => ({
   value: c,
   label: capitalizeFirstLetter(c),
 }))
@@ -23,7 +32,27 @@ export const BadgeSizeOptions = BadgeSizes.map((s) => ({
   label: s.toUpperCase(),
 }))
 
+export const ButtonSizeOptions = ButtonSizes.map((s) => ({
+  value: s,
+  label: s.toUpperCase(),
+}))
+
 export const AvatarSizeOptions = AvatarSizes.map((s) => ({
   value: s,
   label: s.toUpperCase(),
+}))
+
+export const ButtonVariantsOptions = ButtonVariants.map((s) => ({
+  value: s,
+  label: s.toUpperCase(),
+}))
+
+export const ButtonColorsOptions = ButtonColors.map((s) => ({
+  value: s,
+  label: s.toUpperCase(),
+}))
+
+export const IconsOptions = KitIcons.map((s) => ({
+  value: s,
+  label: s,
 }))

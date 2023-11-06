@@ -1,6 +1,6 @@
 import resolveConfig from "tailwindcss/resolveConfig"
 import tailwindConfig from "../config"
-import { Size, BaseColor } from "@/types"
+import { Size, BaseColor, EButtonVariants } from "@/types"
 
 export const fullConfig = resolveConfig(tailwindConfig) as any
 
@@ -42,8 +42,21 @@ export const IconSizes = [
   Size["8xl"],
   Size["9xl"],
 ] as const
-
-export const BadgeColors = [
+export const ButtonColors = [
+  BaseColor.default,
+  BaseColor.error,
+  BaseColor.info,
+  BaseColor.primary,
+  BaseColor.success,
+  BaseColor.white,
+] as const
+export const ButtonSizes = [Size.sm, Size.md, Size.lg] as const
+export const ButtonVariants = [
+  EButtonVariants.solid,
+  EButtonVariants.outlined,
+  EButtonVariants.link,
+] as const
+export const BaseColors = [
   BaseColor.warning,
   BaseColor.error,
   BaseColor.info,
@@ -52,17 +65,15 @@ export const BadgeColors = [
   BaseColor.default,
 ] as const
 
-export const EVENTS = [
-  "play",
-  "pause",
-  "ended",
-  "loadeddata",
-  "waiting",
-  "playing",
-  "timeupdate",
-  "canplay",
-  "canplaythrough",
-  "statechanged",
+export const KitIcons = [
+  "fak  fa-evercam-logo",
+  "fak  fa-itwin-logo",
+  "fak  fa-concrete-pump",
+  "fak  fa-concrete-truck",
+  "fak  fa-tank-truck",
+  "fak  fa-tipping-truck",
+  "fak  fa-unknown-vehicle",
+  "fak  fa-camera-dome",
 ]
 
 export default {}
