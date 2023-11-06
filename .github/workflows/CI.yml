@@ -19,6 +19,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install Dependencies
         run: yarn
@@ -28,7 +29,7 @@ jobs:
       - name: Debug NPM_TOKEN
         run: echo "NPM_TOKEN = $NPM_TOKEN, GITHUB_TOKEN=$GITHUB_TOKEN"
       - name: View .npmrc
-        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN"
+        run: cat .npmrc
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
@@ -38,4 +39,4 @@ jobs:
           publish: yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.npm_token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
