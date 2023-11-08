@@ -1,5 +1,12 @@
 ## 0.0.2 (2023-11-06)
 
+## 0.0.5
+
+### Patch Changes
+
+- a16f340: update the button component
+- fc5a6e5: update button
+
 ## 0.0.4
 
 ### Patch Changes
