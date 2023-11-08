@@ -1,5 +1,11 @@
 ## 0.0.2 (2023-11-06)
 
+## 0.0.4
+
+### Patch Changes
+
+- 2e07cb7: New Button Component
+
 ## 0.0.3
 
 ### Patch Changes
