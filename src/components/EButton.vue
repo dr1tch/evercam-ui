@@ -4,6 +4,7 @@
     <EIcon v-if="prependIcon" :size="size" :icon="prependIcon" :color="color" />
     {{ text }}
     <EIcon v-if="appendIcon" :size="size" :icon="appendIcon" :color="color" />
+    <span>This is a test</span>
   </button>
 </template>
 
