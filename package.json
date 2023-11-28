@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@fontsource-variable/inter": "^5.0.8",
-    "@fortawesome/fontawesome-free": "^5.15.3",
+    "@fortawesome/fontawesome-free": "^6.5.0",
     "@histoire/plugin-vue2": "^0.17.1",
     "@histoire/vendors": "^0.17.0",
     "@vitejs/plugin-vue2": "^2.2.0",
@@ -59,7 +59,7 @@
   },
   "peerDependencies": {
     "@fontsource-variable/inter": "^5.0.8",
-    "@fortawesome/fontawesome-free": "^5.15.3",
+    "@fortawesome/fontawesome-free": "^6.5.0",
     "vue": "^2.7.14"
   },
   "vetur": {
